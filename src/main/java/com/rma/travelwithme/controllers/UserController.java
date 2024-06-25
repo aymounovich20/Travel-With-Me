@@ -1,12 +1,11 @@
 package com.rma.travelwithme.controllers;
 
+import com.rma.travelwithme.models.User;
+import com.rma.travelwithme.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.rma.travelwithme.models.User;
-import com.rma.travelwithme.services.UserService;
 
 import java.util.List;
 
@@ -44,6 +43,7 @@ public class UserController {
         userService.deleteUser(userId);
         return ResponseEntity.noContent().build();
     }
+<<<<<<< HEAD
     
     @PostMapping("/login")
     public ResponseEntity<User> loginUser(@RequestBody User loginRequest) {
@@ -56,5 +56,7 @@ public class UserController {
     	
     }
     // You can add more controller methods as needed
+=======
+>>>>>>> 92b76ce9553be02d8832a473b8c87ba59f0df6ca
 }
 

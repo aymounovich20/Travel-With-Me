@@ -30,8 +30,11 @@ public class MessageService {
     public Message updateMessage(Long messageId, Message messageDetails) {
         Message message = messageRepository.findById(messageId)
                 .orElseThrow(() -> new ResourceNotFoundException("Message not found with id " + messageId));
-        message.setMessageContent(messageDetails.getMessageContent());
-        message.setMessageDateTime(messageDetails.getMessageDateTime());
+
+        message.builder()
+                .messageContent(messageDetails.getMessageContent())
+                .messageDateTime(messageDetails.getMessageDateTime())
+                .build();
         return messageRepository.save(message);
     }
 
