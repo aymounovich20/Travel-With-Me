@@ -30,11 +30,14 @@ public class ItineraryService {
     public Itinerary updateItinerary(Long itineraryId, Itinerary itineraryDetails) {
         Itinerary itinerary = itineraryRepository.findById(itineraryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Itinerary not found with id " + itineraryId));
-        itinerary.setTitle(itineraryDetails.getTitle());
-        itinerary.setDescription(itineraryDetails.getDescription());
-        itinerary.setStartDate(itineraryDetails.getStartDate());
-        itinerary.setEndDate(itineraryDetails.getEndDate());
-        itinerary.setLocation(itineraryDetails.getLocation());
+
+        itinerary.builder()
+                .title(itineraryDetails.getTitle())
+                .description(itineraryDetails.getDescription())
+                .startDate(itineraryDetails.getStartDate())
+                .endDate(itineraryDetails.getEndDate())
+                .location(itineraryDetails.getLocation())
+                .build();
         return itineraryRepository.save(itinerary);
     }
 

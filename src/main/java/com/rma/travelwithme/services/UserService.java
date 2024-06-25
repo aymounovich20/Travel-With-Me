@@ -1,11 +1,10 @@
 package com.rma.travelwithme.services;
 
+import com.rma.travelwithme.models.User;
+import com.rma.travelwithme.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
-
-import com.rma.travelwithme.models.User;
-import com.rma.travelwithme.repositories.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,12 +29,15 @@ public class UserService {
 
     public User updateUser(Long userId, User userDetails) {
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + userId));
-        user.setUsername(userDetails.getUsername());
-        user.setPassword(userDetails.getPassword());
-        user.setEmail(userDetails.getEmail());
-        user.setFirstName(userDetails.getFirstName());
-        user.setLastName(userDetails.getLastName());
-        user.setGroupLeader(userDetails.isGroupLeader());
+
+        user.builder()
+                .username(userDetails.getUsername())
+                .password(userDetails.getPassword())
+                .email(userDetails.getEmail())
+                .firstName(userDetails.getFirstName())
+                .lastName(userDetails.getLastName())
+                .groupLeader(userDetails.isGroupLeader())
+                .build();
         return userRepository.save(user);
     }
 

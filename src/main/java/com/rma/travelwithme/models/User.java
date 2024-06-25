@@ -1,16 +1,13 @@
 package com.rma.travelwithme.models;
 
-import javax.persistence.*;
-
 import com.rma.travelwithme.enums.UserRole;
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.persistence.*;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

@@ -1,12 +1,11 @@
 package com.rma.travelwithme.controllers;
 
+import com.rma.travelwithme.models.User;
+import com.rma.travelwithme.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.rma.travelwithme.models.User;
-import com.rma.travelwithme.services.UserService;
 
 import java.util.List;
 
@@ -43,6 +42,5 @@ public class UserController {
         userService.deleteUser(userId);
         return ResponseEntity.noContent().build();
     }
-    // You can add more controller methods as needed
 }
 
