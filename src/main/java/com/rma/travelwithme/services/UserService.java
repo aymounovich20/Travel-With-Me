@@ -2,6 +2,7 @@ package com.rma.travelwithme.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.rma.travelwithme.models.User;
@@ -42,6 +43,10 @@ public class UserService {
     public void deleteUser(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + userId));
         userRepository.delete(user);
+    }
+    
+    public User authenticateUser(String username, String password) throws Exception {
+    	return userRepository.findByUsernameAndPassword(username, password);
     }
     // You can add more service methods as needed
 }

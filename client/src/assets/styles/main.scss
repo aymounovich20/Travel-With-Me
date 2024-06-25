@@ -1,0 +1,143 @@
+/* styles.css */
+
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,400;0,500;1,400&display=swap");
+
+@import "./variable.scss";
+
+/* Your custom styles below */
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+
+    color: $dark-color;
+}
+
+body {
+    font-family: "Fira Sans", sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+
+    background: rgb(218, 255, 251);
+    background: linear-gradient(
+        90deg,
+        rgba(218, 255, 251, 1) 0%,
+        rgba(22, 216, 255, 0.3971561891358105) 35%,
+        rgba(0, 212, 255, 0.38875282779127274) 100%
+    );
+}
+
+a {
+    text-decoration: none;
+    color: $dark-color;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 0.5rem;
+
+    background-color: $white-color;
+    border: 1px solid $primary-color;
+}
+
+button,
+.button {
+    cursor: pointer;
+
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+
+    min-height: 3rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: $white-color;
+    background-color: $primary-color;
+}
+
+form {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 0.5rem;
+}
+
+span {
+    color: $primary-color;
+}
+
+/* Custom classes */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 100vh;
+    gap: 1rem;
+}
+
+.inner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 0.5rem;
+}
+
+.glass-effect {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(209, 213, 219, 0.3);
+}
+
+.navigation {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 2rem;
+
+    color: $white-color;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 1rem;
+
+    color: $white-color;
+}
+
+/* Add more custom styles as needed */

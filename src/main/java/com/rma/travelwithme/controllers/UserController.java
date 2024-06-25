@@ -10,6 +10,7 @@ import com.rma.travelwithme.services.UserService;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -42,6 +43,17 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable(value = "id") Long userId) {
         userService.deleteUser(userId);
         return ResponseEntity.noContent().build();
+    }
+    
+    @PostMapping("/login")
+    public ResponseEntity<User> loginUser(@RequestBody User loginRequest) {
+    	try {
+            User user = userService.authenticateUser(loginRequest.getUsername(), loginRequest.getPassword());
+            return ResponseEntity.ok(user);
+        } catch (Exception e) {
+        }
+		return null;
+    	
     }
     // You can add more controller methods as needed
 }
