@@ -9,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -54,4 +58,14 @@ public class GroupService {
     	User user = userRepository.findById(userId).get();
     	return groupRepository.findByGroupLeader(user);
     }
+
+	public static long calculateDaysBetween(Date startDate, Date endDate) {
+		if (startDate == null || endDate == null)
+			return 0;
+		else {
+			LocalDate startLocalDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			LocalDate endLocalDate = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			return ChronoUnit.DAYS.between(startLocalDate, endLocalDate);
+		}
+	}
 }
