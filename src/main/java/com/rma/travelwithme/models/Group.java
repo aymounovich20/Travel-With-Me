@@ -1,19 +1,13 @@
 package com.rma.travelwithme.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-
-import org.hibernate.annotations.Fetch;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.sql.Date;
-import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -29,9 +23,9 @@ public class Group {
 
     private String name;
     private String destination;
-    @JsonFormat(pattern="yyyy-mm-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date startDate;
-    @JsonFormat(pattern="yyyy-mm-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date endDate;
     //private Double costPerPerson;
     private String description;
