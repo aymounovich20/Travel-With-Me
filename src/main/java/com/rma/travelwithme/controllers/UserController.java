@@ -1,6 +1,7 @@
 package com.rma.travelwithme.controllers;
 
 import com.rma.travelwithme.models.User;
+import com.rma.travelwithme.requests.LoginRequest;
 import com.rma.travelwithme.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -32,31 +33,26 @@ public class UserController {
         return userService.createUser(user);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long userId, @RequestBody User userDetails) {
-        User updatedUser = userService.updateUser(userId, userDetails);
-        return ResponseEntity.ok(updatedUser);
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long userId, @RequestBody User userDetails) {
+//        User updatedUser = userService.updateUser(userId, userDetails);
+//        return ResponseEntity.ok(updatedUser);
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable(value = "id") Long userId) {
         userService.deleteUser(userId);
         return ResponseEntity.noContent().build();
     }
-<<<<<<< HEAD
     
     @PostMapping("/login")
-    public ResponseEntity<User> loginUser(@RequestBody User loginRequest) {
-    	try {
-            User user = userService.authenticateUser(loginRequest.getUsername(), loginRequest.getPassword());
+    public ResponseEntity<User> authenticateUser(@RequestBody LoginRequest loginRequest) throws Exception {
+            User user = userService.authenticateUser(loginRequest);
             return ResponseEntity.ok(user);
-        } catch (Exception e) {
-        }
-		return null;
+
     	
     }
     // You can add more controller methods as needed
-=======
->>>>>>> 92b76ce9553be02d8832a473b8c87ba59f0df6ca
+
 }
 

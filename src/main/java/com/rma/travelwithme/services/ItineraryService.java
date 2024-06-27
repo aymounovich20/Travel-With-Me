@@ -31,13 +31,13 @@ public class ItineraryService {
         Itinerary itinerary = itineraryRepository.findById(itineraryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Itinerary not found with id " + itineraryId));
 
-        itinerary.builder()
-                .title(itineraryDetails.getTitle())
-                .description(itineraryDetails.getDescription())
-                .startDate(itineraryDetails.getStartDate())
-                .endDate(itineraryDetails.getEndDate())
-                .location(itineraryDetails.getLocation())
-                .build();
+//        itinerary.builder()
+//                .title(itineraryDetails.getTitle())
+//                .description(itineraryDetails.getDescription())
+//                .startDate(itineraryDetails.getStartDate())
+//                .endDate(itineraryDetails.getEndDate())
+//                .location(itineraryDetails.getLocation())
+//                .build();
         return itineraryRepository.save(itinerary);
     }
 

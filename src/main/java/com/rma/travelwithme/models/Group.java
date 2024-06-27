@@ -6,6 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Fetch;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Setter
@@ -21,11 +28,17 @@ public class Group {
     private Long groupId;
 
     private String name;
-
-    @ManyToOne
+    private String destination;
+    @JsonFormat(pattern="yyyy-mm-dd")
+    private Date startDate;
+    @JsonFormat(pattern="yyyy-mm-dd")
+    private Date endDate;
+    //private Double costPerPerson;
+    private String description;
+	@ManyToOne
     @JoinColumn(name = "group_leader_id")
     private User groupLeader;
 
-    private LocalDateTime createdDate;
+    //private LocalDateTime createdDate;
 }
 

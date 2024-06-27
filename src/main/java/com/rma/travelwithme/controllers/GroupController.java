@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/groups")
 public class GroupController {
 
@@ -43,9 +44,14 @@ public class GroupController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/createGroupByUserId")
-    public ResponseEntity<?> createGroupByUserId(@RequestBody Group group,@RequestBody Long userId) throws Exception {
+    @PostMapping("/createGroupByUserId/{userId}")
+    public ResponseEntity<?> createGroupByUserId(@RequestBody Group group,@PathVariable Long userId) throws Exception {
         groupService.createGroupByUserId(group, userId);
         return ResponseEntity.ok("Group created successfully");
+    }
+    @GetMapping("/allByUserId/{userId}")
+    public ResponseEntity<?> findGroupsByUserId(@PathVariable Long userId){
+    	List <Group> groupList = groupService.getAllGroupsByUserId(userId);
+    	return  ResponseEntity.ok(groupList);
     }
 }

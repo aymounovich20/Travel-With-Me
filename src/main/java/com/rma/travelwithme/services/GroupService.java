@@ -1,7 +1,10 @@
 package com.rma.travelwithme.services;
 
 import com.rma.travelwithme.models.Group;
+import com.rma.travelwithme.models.User;
 import com.rma.travelwithme.repositories.GroupRepository;
+import com.rma.travelwithme.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,8 @@ public class GroupService {
 
     @Autowired
     private GroupRepository groupRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     public List<Group> getAllGroups() {
         return groupRepository.findAll();
@@ -41,6 +46,12 @@ public class GroupService {
     }
 
     public void createGroupByUserId(Group group, Long userId) {
-        // Implement this method to create a group by user ID
+    	User user = userRepository.findById(userId).get();
+    	group.setGroupLeader(user);
+    	groupRepository.save(group);
+    }
+    public List<Group> getAllGroupsByUserId(Long userId){
+    	User user = userRepository.findById(userId).get();
+    	return groupRepository.findByGroupLeader(user);
     }
 }
