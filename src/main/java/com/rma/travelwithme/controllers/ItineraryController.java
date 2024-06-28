@@ -2,7 +2,6 @@ package com.rma.travelwithme.controllers;
 
 import com.rma.travelwithme.models.Itinerary;
 import com.rma.travelwithme.services.ItineraryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +11,11 @@ import java.util.List;
 @RequestMapping("/api/itineraries")
 public class ItineraryController {
 
-    @Autowired
-    private ItineraryService itineraryService;
+    private final ItineraryService itineraryService;
+
+    public ItineraryController(ItineraryService itineraryService) {
+        this.itineraryService = itineraryService;
+    }
 
     @GetMapping
     public List<Itinerary> getAllItineraries() {

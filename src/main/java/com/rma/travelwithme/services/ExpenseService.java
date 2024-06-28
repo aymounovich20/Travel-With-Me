@@ -2,7 +2,6 @@ package com.rma.travelwithme.services;
 
 import com.rma.travelwithme.models.Expense;
 import com.rma.travelwithme.repositories.ExpenseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +10,11 @@ import java.util.List;
 @Service
 public class ExpenseService {
 
-    @Autowired
-    private ExpenseRepository expenseRepository;
+    private final ExpenseRepository expenseRepository;
+
+    public ExpenseService(ExpenseRepository expenseRepository) {
+        this.expenseRepository = expenseRepository;
+    }
 
     public List<Expense> getAllExpenses() {
         return expenseRepository.findAll();

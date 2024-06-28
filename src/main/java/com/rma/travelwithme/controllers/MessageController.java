@@ -2,7 +2,6 @@ package com.rma.travelwithme.controllers;
 
 import com.rma.travelwithme.models.Message;
 import com.rma.travelwithme.services.MessageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +11,11 @@ import java.util.List;
 @RequestMapping("/api/messages")
 public class MessageController {
 
-    @Autowired
-    private MessageService messageService;
+    private final MessageService messageService;
+
+    public MessageController(MessageService messageService) {
+        this.messageService = messageService;
+    }
 
     @GetMapping
     public List<Message> getAllMessages() {

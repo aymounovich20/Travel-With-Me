@@ -1,11 +1,10 @@
 package com.rma.travelwithme.services;
 
 import com.rma.travelwithme.models.Group;
+import com.rma.travelwithme.models.Invitation;
 import com.rma.travelwithme.models.User;
 import com.rma.travelwithme.repositories.GroupRepository;
 import com.rma.travelwithme.repositories.UserRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +13,21 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class GroupService {
 
-    @Autowired
-    private GroupRepository groupRepository;
-    @Autowired
-    private UserRepository userRepository;
+    private final GroupRepository groupRepository;
+    private final UserRepository userRepository;
+    private final MailSenderService mailSenderService;
+
+    public GroupService(GroupRepository groupRepository, UserRepository userRepository, MailSenderService mailSenderService) {
+        this.groupRepository = groupRepository;
+        this.userRepository = userRepository;
+        this.mailSenderService = mailSenderService;
+    }
 
     public List<Group> getAllGroups() {
         return groupRepository.findAll();
@@ -33,6 +39,14 @@ public class GroupService {
     }
 
     public Group createGroup(Group group) {
+
+        Set<String> emailList = group.getListOfJoiners()
+                .stream()
+                .map(Invitation::getEmail)
+                .collect(Collectors.toSet());
+
+        mailSenderService.sendSimpleMessage(emailList, group.getGroupId(), group.getName());
+
         return groupRepository.save(group);
     }
 
@@ -50,22 +64,23 @@ public class GroupService {
     }
 
     public void createGroupByUserId(Group group, Long userId) {
-    	User user = userRepository.findById(userId).get();
-    	group.setGroupLeader(user);
-    	groupRepository.save(group);
-    }
-    public List<Group> getAllGroupsByUserId(Long userId){
-    	User user = userRepository.findById(userId).get();
-    	return groupRepository.findByGroupLeader(user);
+        User user = userRepository.findById(userId).get();
+        group.setGroupLeader(user);
+        groupRepository.save(group);
     }
 
-	public static long calculateDaysBetween(Date startDate, Date endDate) {
-		if (startDate == null || endDate == null)
-			return 0;
-		else {
-			LocalDate startLocalDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			LocalDate endLocalDate = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			return ChronoUnit.DAYS.between(startLocalDate, endLocalDate);
-		}
-	}
+    public List<Group> getAllGroupsByUserId(Long userId) {
+        User user = userRepository.findById(userId).get();
+        return groupRepository.findByGroupLeader(user);
+    }
+
+    public static long calculateDaysBetween(Date startDate, Date endDate) {
+        if (startDate == null || endDate == null)
+            return 0;
+        else {
+            LocalDate startLocalDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate endLocalDate = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            return ChronoUnit.DAYS.between(startLocalDate, endLocalDate);
+        }
+    }
 }

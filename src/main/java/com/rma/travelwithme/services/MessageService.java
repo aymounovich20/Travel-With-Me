@@ -2,7 +2,6 @@ package com.rma.travelwithme.services;
 
 import com.rma.travelwithme.models.Message;
 import com.rma.travelwithme.repositories.MessageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +10,11 @@ import java.util.List;
 @Service
 public class MessageService {
 
-    @Autowired
-    private MessageRepository messageRepository;
+    private final MessageRepository messageRepository;
+
+    public MessageService(MessageRepository messageRepository) {
+        this.messageRepository = messageRepository;
+    }
 
     public List<Message> getAllMessages() {
         return messageRepository.findAll();

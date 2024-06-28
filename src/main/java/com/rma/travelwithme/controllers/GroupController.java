@@ -1,9 +1,7 @@
 package com.rma.travelwithme.controllers;
 
 import com.rma.travelwithme.models.Group;
-import com.rma.travelwithme.models.Invitation;
 import com.rma.travelwithme.services.GroupService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +12,11 @@ import java.util.List;
 @RequestMapping("/api/groups")
 public class GroupController {
 
-    @Autowired
-    private GroupService groupService;
+    private final GroupService groupService;
+
+    public GroupController(GroupService groupService) {
+        this.groupService = groupService;
+    }
 
     @GetMapping
     public List<Group> getAllGroups() {

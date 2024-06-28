@@ -2,7 +2,6 @@ package com.rma.travelwithme.controllers;
 
 import com.rma.travelwithme.models.Expense;
 import com.rma.travelwithme.services.ExpenseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +11,11 @@ import java.util.List;
 @RequestMapping("/api/expenses")
 public class ExpenseController {
 
-    @Autowired
-    private ExpenseService expenseService;
+    private final ExpenseService expenseService;
+
+    public ExpenseController(ExpenseService expenseService) {
+        this.expenseService = expenseService;
+    }
 
     @GetMapping
     public List<Expense> getAllExpenses() {
