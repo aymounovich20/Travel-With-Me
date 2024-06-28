@@ -1,6 +1,7 @@
 package com.rma.travelwithme.controllers;
 
 import com.rma.travelwithme.models.Group;
+import com.rma.travelwithme.models.Invitation;
 import com.rma.travelwithme.services.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +47,8 @@ public class GroupController {
 
     @PostMapping("/createGroupByUserId/{userId}")
     public ResponseEntity<?> createGroupByUserId(@RequestBody Group group,@PathVariable Long userId) throws Exception {
-        groupService.createGroupByUserId(group, userId);
+        //System.out.println(emails);
+    	groupService.createGroupByUserId(group, userId);
         return ResponseEntity.ok("Group created successfully");
     }
     @GetMapping("/allByUserId/{userId}")
