@@ -32,7 +32,7 @@ export const travelData = async (location) => {
     }
 };
 
-export const fetchTouristPlaces = async (location) => {
+export const fetchTripPlaces = async (location) => {
     const options = {
         method: "GET",
         url: "https://booking-com.p.rapidapi.com/v1/hotels/locations",

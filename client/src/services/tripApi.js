@@ -1,13 +1,16 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL,
+    baseURL: "http://localhost:8085",
 });
 
 //Create new trip
-export async function createTrip(tripData) {
+export async function createTrip(tripData,userId) {
     try {
-        const response = await instance.post('/api/trips/create', tripData);
+        console.log("bbbb"+tripData);
+        //const emailArray = trimStringToArray(tripData.invitations);
+        //console.log("ccccc"+emailArray);
+        const response = await instance.post(`/api/groups/createGroupByUserId/${userId}`, tripData);
         return response.data.trip;
     } catch (error) {
         alert("Failed to create trip");
@@ -18,8 +21,8 @@ export async function createTrip(tripData) {
 //Trip by id
 export async function getTripById(tripId) {
     try {
-        const response = await instance.get(`/api/trips/${tripId}`);
-        return response.data.trip;
+        const response = await instance.get(`/api/groups/${tripId}`);
+        return response.data;
     } catch (error) {
         alert("Failed to get trip");
         throw new Error('Failed to get trip');
@@ -29,8 +32,9 @@ export async function getTripById(tripId) {
 //Get user trips
 export async function getUserTrips(userId) {
     try {
-        const response = await instance.get(`/api/trips/user-trips/${userId}`);
-        return response.data.trips;
+        const response = await instance.get(`/api/groups/allByUserId/${userId}`);
+        console.log(response.data);
+        return response.data;
     } catch (error) {
         alert("Failed to get user trips");
         throw new Error('Failed to get user trips');
@@ -58,4 +62,19 @@ export async function updateTrip(tripId, tripData) {
         throw new Error('Failed to update trip');
     }
 }
+export async function getAllTrips() {
+    try {
+        const response = await instance.get(`/api/groups`);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        alert("Failed to get All trips");
+        throw new Error('Failed to get All trips');
+    }
+}
+
+const trimStringToArray = (str) => {
+    // Split the string by commas and trim each resulting part
+    return str.split(',').map(email => email.trim());
+  };
 

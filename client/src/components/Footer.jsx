@@ -99,11 +99,11 @@ const Footer = () => {
                 gap: "0.5rem",
               }}
             >
-              <p>1234 TripPlanner, New Delhi, India</p>
+              <p>1234 TravelWithMe, Tunis, Tunisia</p>
 
-              <p>info@tripplanner.com</p>
+              <p>info@travelWithMe.com</p>
 
-              <p>+91 8009396321</p>
+              <p>+216 51869906</p>
             </div>
           </div>
         </div>

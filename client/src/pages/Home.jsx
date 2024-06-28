@@ -5,7 +5,7 @@ import { Card, Header } from "../components";
 import { trips, images, features } from "../constants";
 
 const Home = () => {
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user);
   const [filter, setFilter] = useState("");
   const [search, setSearch] = useState("");
 
@@ -29,7 +29,7 @@ const Home = () => {
   return (
     <div className="container">
       {/* Header */}
-      <Header username={user ? user.name : ""} />
+      <Header username={user ? user.userName : ""} />
 
       {/* Trip cards */}
       <div

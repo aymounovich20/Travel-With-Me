@@ -12,8 +12,8 @@ const Navigation = () => {
       link: "/",
     },
     {
-      label: "Trips",
-      link: "/trips",
+      label: "Travel Groups",
+      link: "/all-trips",
     },
     {
       label: "Explore",
@@ -44,7 +44,7 @@ const Navigation = () => {
           }}
         />
         <h1>
-          Travel <span>Buddy</span>
+          Travel <span>With Me</span>
         </h1>
       </Link>
       <div className="row">
@@ -56,10 +56,11 @@ const Navigation = () => {
       </div>
       {user ? (
         <div className="row">
-          <Link to="/create-trip">Create Trip</Link>
+          <Link to="/create-trip">Create Group</Link>
           <Link to="/profile" className="button">
             Profile
           </Link>
+          <Link className="button"onClick={(e)=>{Logout()}}>Logout</Link>
         </div>
       ) : (
         <div className="row">
@@ -74,3 +75,7 @@ const Navigation = () => {
 };
 
 export default Navigation;
+const Logout=() =>{
+  localStorage.clear();
+  navigate('/');
+}

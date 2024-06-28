@@ -10,8 +10,8 @@ const CreateTrip = () => {
       }}
     >
       <div className="inner-container">
-        <h1>Create a New Trip</h1>
-        <p>Plan your next adventure with our trip creation tool.</p>
+        <h1>Create a New Travel Group</h1>
+        <p>Plan your next adventure with our Group travel App.</p>
       </div>
       <TripForm />
     </div>

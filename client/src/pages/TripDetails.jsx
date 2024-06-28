@@ -14,12 +14,26 @@ import { fetchImages } from "../services/unsplashApi";
 
 import {
   fetchPlaceLocation,
-  fetchTouristPlaces,
+  fetchTripPlaces,
   fetchHotels,
 } from "../services/rapidApi";
 
 import { getTripById, deleteTrip } from "../services/tripApi";
 
+const calculateDifferenceInDays=(date1, date2) =>{
+  console.log("date1"+date1);
+  console.log("date2"+date2);
+  const d1 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());
+  const d2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
+
+  const timestamp1 = d1.getTime();
+  const timestamp2 = d2.getTime();
+  const differenceInMilliseconds = Math.abs(timestamp2 - timestamp1);
+  const millisecondsPerDay = 1000 * 60 * 60 * 24;
+  const differenceInDays = differenceInMilliseconds / millisecondsPerDay;
+  
+  return Math.round(differenceInDays);
+}
 const TripDetails = () => {
   const [trip, setTrip] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -37,12 +51,13 @@ const TripDetails = () => {
 
       try {
         const trip = await getTripById(id);
+        console.log("aaaaaaa"+trip);
         setTrip(trip);
 
-        const [fetchedImages, fetchedTouristPlaces, placeProperty] =
+        {/*const [fetchedImages, fetchedTouristPlaces, placeProperty] =
           await Promise.all([
             fetchImages(trip.destination),
-            fetchTouristPlaces(trip.destination),
+            fetchTripPlaces(trip.destination),
             fetchPlaceLocation(trip.destination),
           ]);
 
@@ -55,7 +70,7 @@ const TripDetails = () => {
             placeProperty.lon
           );
           setHotels(fetchedHotels);
-        }
+        }*/}
       } catch (error) {
         console.error("Error fetching trip details:", error);
       } finally {
@@ -110,8 +125,11 @@ const TripDetails = () => {
                 <p>{trip?.description}</p>
               </div>
               <div className="row">
+              {user && trip.groupLeader && user.userId === trip?.groupLeader?.userId &&(
+                <>
                 <button onClick={handleEdit}>Edit</button>
                 <button onClick={handleDelete}>Delete</button>
+                </>)}
                 <InviteFriend />
               </div>
             </div>
@@ -134,12 +152,12 @@ const TripDetails = () => {
                   {[
                     { label: "Start Date", value: trip?.startDate },
                     { label: "End Date", value: trip?.endDate },
-                    { label: "Created By", value: trip?.createdBy },
+                    { label: "Created By", value: trip?.groupLeader?.username },
                     {
                       label: "Invited friends",
                       value: "No of friends invited",
                     },
-                    { label: "Total days", value: `${trip?.totalDays} Days` },
+                    { label: "Total days", value: `${trip.startDate} Days` },
                     { label: "Cost for each", value: trip?.cost },
                   ].map(({ label, value }) => (
                     <div
@@ -167,7 +185,7 @@ const TripDetails = () => {
               className="inner-container"
               style={{ alignItems: "flex-start", width: "100%" }}
             >
-              <h1>Tourist Places</h1>
+              <h1>Itinerary</h1>
               <div
                 style={{
                   display: "grid",
@@ -176,7 +194,7 @@ const TripDetails = () => {
                   width: "100%",
                 }}
               >
-                {touristPlaces?.slice(0, 3).map((location) => (
+                {/*touristPlaces?.slice(0, 3).map((location) => (
                   <TouristLocationCard
                     key={location?.dest_id}
                     image={location?.image_url}
@@ -185,7 +203,7 @@ const TripDetails = () => {
                     name={location?.name}
                     numHotels={location?.nr_hotels}
                   />
-                ))}
+                ))*/}
               </div>
             </div>
 
@@ -219,10 +237,10 @@ const TripDetails = () => {
             >
               <h1>Trip Duration</h1>
               <div>
-                <CalendarComponent
+                {<CalendarComponent
                   startDate={trip.startDate}
                   endDate={trip.endDate}
-                />
+                />}
               </div>
             </div>
             {hotels?.length > 0 && (
@@ -231,7 +249,7 @@ const TripDetails = () => {
                 style={{ alignItems: "flex-start", gap: "1rem" }}
               >
                 <h1>Hotels Nearby</h1>
-                {hotels?.slice(0, 4).map((hotel) => (
+                {/*hotels?.slice(0, 4).map((hotel) => (
                   <HotelCard
                     key={hotel?.hotel_name}
                     hotelName={hotel?.hotel_name}
@@ -242,7 +260,7 @@ const TripDetails = () => {
                     websiteURL={hotel?.urL}
                     zip={hotel?.zip}
                   />
-                ))}
+                ))*/}
               </div>
             )}
           </div>

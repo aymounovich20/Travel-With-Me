@@ -58,7 +58,8 @@ const TripForm = () => {
     };
 
     // Send trip data to the server
-    await createTrip(updatedTripData);
+    console.log("aaa"+invitationEmails);
+    await createTrip(updatedTripData,user.userId);
 
     setIsLoading(false);
 
@@ -173,7 +174,7 @@ const TripForm = () => {
         </div>
       </div>
 
-      <div
+      {/*<div
         className="inner-container"
         style={{
           alignItems: "flex-start",
@@ -190,7 +191,7 @@ const TripForm = () => {
           required
           placeholder="Enter in dollar currency..."
         />
-      </div>
+      </div>*/}
 
       <div
         className="inner-container"

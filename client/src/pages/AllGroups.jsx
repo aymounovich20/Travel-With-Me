@@ -1,13 +1,11 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
-import { getUserTrips } from "../services/tripApi";
+import { getAllTrips } from "../services/tripApi";
 import { Card } from "../components";
 import { Link } from "react-router-dom";
 
-const Profile = () => {
-  const userData = useSelector((state) => state.user);
-  const { user } = userData;
+const AllGroups = () => {
 
   const [trips, setTrips] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +16,7 @@ const Profile = () => {
     setIsLoading(true);
 
     // Fetch user trips from the server
-    getUserTrips(user.userId)
+    getAllTrips()
       .then((trips) => {
         setTrips(trips);
         setIsLoading(false);
@@ -27,7 +25,7 @@ const Profile = () => {
         console.error("Error fetching trips:", error);
         setIsLoading(false);
       });
-  }, [user.userId]);
+  }, []);
 
   useEffect(() => {
     // Filter trips based on search term
@@ -47,9 +45,6 @@ const Profile = () => {
     setSearchTerm(e.target.value);
   };
 
-  const handleEdit = () => {
-    console.log("Edit Profile");
-  };
 
   return (
     <div
@@ -58,31 +53,6 @@ const Profile = () => {
         padding: "2rem",
       }}
     >
-      <div className="row" style={{ gap: "2rem" }}>
-        <img
-          src="https://demos.transloadit.com/49/ea88592a2c40d89be6268b2f047b49/desert.jpg"
-          alt="profile pic"
-          style={{
-            width: "180px",
-            height: "180px",
-            borderRadius: "50%",
-            objectFit: "cover",
-          }}
-        />
-        <div
-          className="inner-container"
-          style={{
-            alignItems: "flex-start",
-          }}
-        >
-          <h1>{user.firstName} {user.lastName}</h1>
-          <p>Address, Tunisia</p>
-          <p>UI/Visual Design, Product Design, Research</p>
-          <div className="row">
-            <button onClick={handleEdit}>Edit Profile</button>
-          </div>
-        </div>
-      </div>
       <div
         className="inner-container"
         style={{
@@ -102,7 +72,7 @@ const Profile = () => {
               className={`tab ${activeTab === "trips" ? "active" : ""}`}
               onClick={() => handleTabChange("trips")}
             >
-              Your Trips
+              All Trips
             </button>
           </div>
 
@@ -144,6 +114,7 @@ const Profile = () => {
                       justifyContent: "center",
                       alignItems: "center",
                       marginTop: "2rem",
+                      color:"blue"
                     }}
                   >
                     Loading trips...
@@ -181,4 +152,4 @@ const Profile = () => {
     </div>
   );
 };
-export default Profile;
+export default AllGroups;
