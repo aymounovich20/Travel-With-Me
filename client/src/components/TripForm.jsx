@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import {useState} from "react";
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
-import { createTrip } from "../services/tripApi";
+import {createTrip} from "../services/tripApi";
 
 const TripForm = () => {
   const userData = useSelector((state) => state.user);
@@ -19,6 +19,7 @@ const TripForm = () => {
     cost: 0,
     createdBy: user._id,
     invitations: [],
+    listOfJoinersEmails: [],
   });
 
   const [invitationEmails, setInvitationEmails] = useState([""]);
@@ -51,14 +52,13 @@ const TripForm = () => {
 
     setIsLoading(true);
 
-    // Update trip data with invitation emails
+
     const updatedTripData = {
       ...tripData,
-      invitations: invitationEmails.filter((email) => email.trim() !== ""),
+      listOfJoinersEmails: invitationEmails
+            .filter((email) => email.trim() !== ""),
     };
 
-    // Send trip data to the server
-    console.log("aaa"+invitationEmails);
     await createTrip(updatedTripData,user.userId);
 
     setIsLoading(false);

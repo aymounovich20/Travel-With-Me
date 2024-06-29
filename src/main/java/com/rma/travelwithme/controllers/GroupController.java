@@ -40,21 +40,27 @@ public class GroupController {
         return ResponseEntity.ok().body(updatedGroup);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping()
+    public ResponseEntity<Void> deleteAllGroups() {
+        groupService.deleteAllGroups();
+        return ResponseEntity.ok().build();
+    }
+
     public ResponseEntity<Void> deleteGroup(@PathVariable Long id) {
         groupService.deleteGroup(id);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/createGroupByUserId/{userId}")
-    public ResponseEntity<?> createGroupByUserId(@RequestBody Group group,@PathVariable Long userId) throws Exception {
+    public ResponseEntity<?> createGroupByUserId(@RequestBody Group group, @PathVariable Long userId) throws Exception {
         //System.out.println(emails);
-    	groupService.createGroupByUserId(group, userId);
+        groupService.createGroupByUserId(group, userId);
         return ResponseEntity.ok("Group created successfully");
     }
+
     @GetMapping("/allByUserId/{userId}")
-    public ResponseEntity<?> findGroupsByUserId(@PathVariable Long userId){
-    	List <Group> groupList = groupService.getAllGroupsByUserId(userId);
-    	return  ResponseEntity.ok(groupList);
+    public ResponseEntity<?> findGroupsByUserId(@PathVariable Long userId) {
+        List<Group> groupList = groupService.getAllGroupsByUserId(userId);
+        return ResponseEntity.ok(groupList);
     }
 }

@@ -66,7 +66,9 @@ public class GroupService {
     public void createGroupByUserId(Group group, Long userId) {
         User user = userRepository.findById(userId).get();
         group.setGroupLeader(user);
-        groupRepository.save(group);
+        Group savedGroup = groupRepository.save(group);
+
+        mailSenderService.sendSimpleMessage(group.getListOfJoinersEmails(), savedGroup.getGroupId(), savedGroup.getName());
     }
 
     public List<Group> getAllGroupsByUserId(Long userId) {
@@ -83,4 +85,7 @@ public class GroupService {
             return ChronoUnit.DAYS.between(startLocalDate, endLocalDate);
         }
     }
+    public void deleteAllGroups() {
+    groupRepository.deleteAll();
+}
 }
