@@ -68,6 +68,9 @@ public class GroupService {
         group.setGroupLeader(user);
         Group savedGroup = groupRepository.save(group);
 
+        if(group.getListOfJoinersEmails().isEmpty()) {
+            return;
+        }
         mailSenderService.sendSimpleMessage(group.getListOfJoinersEmails(), savedGroup.getGroupId(), savedGroup.getName());
     }
 

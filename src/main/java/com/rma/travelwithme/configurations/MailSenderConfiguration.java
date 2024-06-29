@@ -1,4 +1,4 @@
-package com.rma.travelwithme.configuration;
+package com.rma.travelwithme.configurations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
